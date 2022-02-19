@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     index: './src/index.js',
     generateBody: './src/generateBody.js',
+    bodyContent: './src/bodyContent.js',
   },
   plugins: [
     new HtmlWebpackPlugin({

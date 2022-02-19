@@ -1,7 +1,11 @@
+@font-face {
+  font-family: 'MyFont';
+  src: url('./VT323-Regular.ttf');
+}
 * {
-  margin: 0;
-  border: 1px solid brown;
-  font-family: 'Courier New', Courier, monospace;
+  /* border: 1px solid brown; */
+  font-family: 'MyFont', sans-serif;
+  font-size: 1.2rem;
 
   /* playing with variables */
   --widget-width: 375px;
@@ -34,16 +38,67 @@ body {
   color: inherit;
   transition: 100ms;
 }
+.title-text {
+  font-size: 3rem;
+}
 .avatar {
   border-radius: 50%;
-  height: 2rem;
+  height: 3rem;
   border: 1px solid 190b30cb;
 }
 .intro {
-  width: var(--widget-width);
+  width: 80%;
 }
 /* widget css */
 .widget {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid cyan;
+  border-radius: 10px;
   width: var(--widget-width, 375px);
   height: calc( var(--widget-width) / 1.618 );
+  padding: 10px;
+  user-select: none;
+  cursor: pointer;
+}
+.now-temp {
+  font-size: 4rem;
+  display: flex;
+  align-items: center;
+}
+.now-high-low-div {
+  display: flex;
+  align-items: center;
+}
+.condition-div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 10px;
+}
+.condition {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 2.1rem;
+}
+.forecast-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+.day-1, .day-2, .day-3, .day-4, .day-5 {
+  text-align: center;
+}
+.forecast-day-div {
+  display: flex;
+  flex-direction: column;
+}
+.forecast-high-low {
+  display: flex;
+}
+.day {
+  text-align: center;
 }
