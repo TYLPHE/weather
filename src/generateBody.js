@@ -85,7 +85,7 @@ const widget = {
     return temp;
   },
 
-  // div to display condition
+  // div to display condition, for example, 'clear sky'
   conditionDiv: () => {
     const conditionDiv = document.createElement('div');
     conditionDiv.classList.add('condition-div');
@@ -107,11 +107,9 @@ const widget = {
 
       const forecastHigh = document.createElement('div');
       forecastHigh.classList.add(`forecast-high-${i}`);
-      forecastHigh.textContent = '33';
 
       const forecastLow = document.createElement('div');
       forecastLow.classList.add(`forecast-low-${i}`);
-      forecastLow.textContent = '33';
 
       const slash = document.createElement('div');
       slash.textContent = '/';

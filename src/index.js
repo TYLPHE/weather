@@ -23,7 +23,7 @@ const baseUrl = `http://api.openweathermap.org/data/2.5/onecall?&exclude=minutel
 // fetch data
 async function fetchApi(url) {
   try {
-    const response = await fetch(url, { mode: 'cors' });
+    const response = await fetch(url);
     const weatherData = await response.json();
     console.log(weatherData);
     return weatherData;
