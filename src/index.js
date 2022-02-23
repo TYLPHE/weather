@@ -15,10 +15,10 @@ let lat = 37.7790262;
 let lon = -122.419906;
 
 // lon/lat -> location name
-const lonLatToGeo = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
+const lonLatToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
 
 // used in fetch()
-const baseUrl = `http://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
+const baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
 
 // fetch data
 async function fetchApi(url) {
