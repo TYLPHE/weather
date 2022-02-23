@@ -1,4 +1,4 @@
-[See my progress here!](https://TYLPHE.github.io/weather/)
+[See my progress here!](https://TYLPHE.github.io/weather/dist/)
 
 # weather
 https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/weather-app
