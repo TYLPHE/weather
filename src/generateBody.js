@@ -26,13 +26,26 @@ const widget = {
       widget.condition(),
     );
     // append everything to widget container
-    const main = widget.body();
-    main.append(
+    const widgetBody = widget.body();
+    widgetBody.append(
       widget.location(),
       conditionDiv,
       widget.forecastDiv(),
     );
-    return main;
+
+    // create a main absolute window to hide popup menu
+    // append widget and menu to this so it can create popup effect
+    const widgetWindow = document.createElement('div');
+    widgetWindow.classList.add('widget-window');
+    widgetWindow.append(
+      widgetBody,
+      widget.menu(),
+    );
+
+    widgetWindow.addEventListener('click', () => {
+      document.querySelector('.menu-div').classList.toggle('open');
+    });
+    return widgetWindow;
   },
 
   // main widget body
@@ -129,7 +142,26 @@ const widget = {
       );
       forecastDiv.appendChild(forecastDayDiv);
     }
+
     return forecastDiv;
+  },
+  menu: () => {
+    const menuDiv = document.createElement('div');
+    menuDiv.classList.add('menu-div');
+
+    const label = document.createElement('label');
+    label.for = 'location-input';
+    label.textContent = 'Location:';
+
+    const locationInput = document.createElement('input');
+    locationInput.id = 'location-input';
+
+    menuDiv.append(
+      label,
+      locationInput,
+    );
+
+    return menuDiv;
   },
 };
 
