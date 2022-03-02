@@ -4,11 +4,11 @@ import generateBody from './generateBody';
 // I havent learned how to hide APIs yet.
 const api = '32f3485fcef91da801aff2df635b45db';
 
-// TODO: add a search for location
+// to be used in let GeoToCoord
 let location = '';
 
 // can be 'metric' or 'imperial'
-const metrics = 'imperial';
+let units = 'Imperial';
 
 // default latitude and longitude values
 let lat = 37.7790262;
@@ -21,7 +21,7 @@ let coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=
 let GeoToCoord = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${api}`;
 
 // used in fetch()
-let baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
+let baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
 // fetch data
 async function fetchApi(url) {
@@ -41,7 +41,13 @@ async function reverseGeo(data) {
   lon = data.lon;
   coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
   const name = await fetchApi(coordToGeo);
-  return name[0].name;
+  let locationString = name[0].name;
+  if (name[0].country === 'US') {
+    locationString += `, ${name[0].state}`;
+  } else {
+    locationString += `, ${name[0].country}`;
+  }
+  return locationString;
 }
 
 // after fetching, display data on webpage
@@ -79,6 +85,13 @@ async function displayData(data) {
     forecastLow.textContent = Math.round(data.daily[i].temp.min);
     forecastLow.textContent += '°';
   }
+
+  const button = document.querySelector('button');
+  if (units === 'Imperial') {
+    button.textContent = '°F';
+  } else {
+    button.textContent = '°C';
+  }
 }
 
 // direct geocoding: https://openweathermap.org/api/geocoding-api
@@ -91,40 +104,76 @@ async function getCoords(/* input div */ input) {
     const coord = await fetchApi(GeoToCoord);
     lat = coord[0].lat;
     lon = coord[0].lon;
-    baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
+    baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
     const newData = await fetchApi(baseUrl);
     await displayData(newData);
   } catch (err) {
-    throw console.log(`error in getCoords(): ${err}`);
+    const border = document.querySelector('.widget-window');
+    // border.style.borderColor = 'red';
+    border.classList.toggle('location-error');
+    setTimeout(() => {
+      // border.style.borderColor = 'cyan';
+      border.classList.toggle('location-error');
+    }, 1000);
+    console.log(`error in getCoords(): ${err}`);
   }
 }
 
+async function refresh(url) {
+  const data = await fetchApi(url);
+  displayData(data);
+}
+
 function menuFunctions() {
-  // slides menu into window
   const widget = document.querySelector('.widget');
   const menuDiv = document.querySelector('.menu-div');
   const input = document.querySelector('input');
+
+  // puts cursor in input div when menu opens
   widget.addEventListener('click', () => {
     menuDiv.classList.toggle('open');
-    // input.focus();
+    setTimeout(() => {
+      input.focus();
+    }, 160);
   });
 
   // slide menu out of window - 'Enter' hotkey
-
   input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      menuDiv.classList.remove('open');
-      getCoords(input);
+      menuDiv.classList.toggle('open');
+      if (input.value && !menuDiv.classList.contains('open')) {
+        getCoords(input);
+      }
     }
   });
 
   // slide menu out of window - clicking out of input div
   menuDiv.addEventListener('click', (event) => {
     if (event.target.className === 'menu-div open') {
-      menuDiv.classList.remove('open');
-      getCoords(input);
+      menuDiv.classList.toggle('open');
+      if (input.value && !menuDiv.classList.contains('open')) {
+        getCoords(input);
+      }
     }
+  });
+
+  // metric button
+  const button = document.querySelector('button');
+  // if (units === 'Imperial') {
+  //   button.textContent = '°F';
+  // } else {
+  //   button.textContent = '°C';
+  // }
+
+  button.addEventListener('click', () => {
+    if (units === 'Imperial') {
+      units = 'Metric';
+    } else {
+      units = 'Imperial';
+    }
+    baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
+    refresh(baseUrl);
   });
 }
 
@@ -132,6 +181,5 @@ function menuFunctions() {
 (async function init(url) {
   generateBody();
   menuFunctions();
-  const data = await fetchApi(url);
-  displayData(data);
+  refresh(url);
 }(baseUrl));

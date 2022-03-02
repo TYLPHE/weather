@@ -152,9 +152,19 @@ const widget = {
     const locationInput = document.createElement('input');
     locationInput.id = 'location-input';
 
-    menuDiv.append(
+    const inputContainer = document.createElement('div');
+    inputContainer.classList.add('input-container');
+    inputContainer.append(
       label,
       locationInput,
+    );
+
+    const metricButton = document.createElement('button');
+    metricButton.type = 'submit';
+
+    menuDiv.append(
+      metricButton,
+      inputContainer,
     );
 
     return menuDiv;

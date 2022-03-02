@@ -111,6 +111,10 @@ body {
   border-radius: 10px;
   gap: 3px;
   position: relative;
+  transition: 150ms;
+}
+.location-error {
+  border-color: red;
 }
 .menu-div {
   position: relative;
@@ -127,6 +131,12 @@ body {
   transition: .15s ease-out;
   background-color: rgba(31, 31, 31, 0.8);
 }
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 .open {
   transform: translate(-397px, 0);
 }
@@ -140,4 +150,21 @@ input {
   text-align: center;
   width: 15rem;
   height: 5rem;
+}
+input:focus {
+  outline: none;
+  border-color: cyan;
+}
+button{
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 50%;
+  padding: 3px;
+  height: 2rem;
+  width: 2rem;
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: 1px solid cyan;
 }
