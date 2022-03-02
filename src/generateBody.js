@@ -41,10 +41,6 @@ const widget = {
       widgetBody,
       widget.menu(),
     );
-
-    widgetWindow.addEventListener('click', () => {
-      document.querySelector('.menu-div').classList.toggle('open');
-    });
     return widgetWindow;
   },
 

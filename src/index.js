@@ -5,7 +5,7 @@ import generateBody from './generateBody';
 const api = '32f3485fcef91da801aff2df635b45db';
 
 // TODO: add a search for location
-const location = 'san francisco';
+let location = '';
 
 // can be 'metric' or 'imperial'
 const metrics = 'imperial';
@@ -14,11 +14,14 @@ const metrics = 'imperial';
 let lat = 37.7790262;
 let lon = -122.419906;
 
-// lon/lat -> location name
-const lonLatToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
+// lon/lat coordinates -> location name
+let coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
+
+// location/zip/post code -> lon/lat coordinates
+let GeoToCoord = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${api}`;
 
 // used in fetch()
-const baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
+let baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
 
 // fetch data
 async function fetchApi(url) {
@@ -36,7 +39,8 @@ async function fetchApi(url) {
 async function reverseGeo(data) {
   lat = data.lat;
   lon = data.lon;
-  const name = await fetchApi(lonLatToGeo);
+  coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
+  const name = await fetchApi(coordToGeo);
   return name[0].name;
 }
 
@@ -77,9 +81,57 @@ async function displayData(data) {
   }
 }
 
+// direct geocoding: https://openweathermap.org/api/geocoding-api
+// convert location/zip/post code to coordinates
+async function getCoords(/* input div */ input) {
+  try {
+    location = input.value;
+    GeoToCoord = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${api}`;
+
+    const coord = await fetchApi(GeoToCoord);
+    lat = coord[0].lat;
+    lon = coord[0].lon;
+    baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${metrics}`;
+
+    const newData = await fetchApi(baseUrl);
+    await displayData(newData);
+  } catch (err) {
+    throw console.log(`error in getCoords(): ${err}`);
+  }
+}
+
+function menuFunctions() {
+  // slides menu into window
+  const widget = document.querySelector('.widget');
+  const menuDiv = document.querySelector('.menu-div');
+  const input = document.querySelector('input');
+  widget.addEventListener('click', () => {
+    menuDiv.classList.toggle('open');
+    // input.focus();
+  });
+
+  // slide menu out of window - 'Enter' hotkey
+
+  input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      menuDiv.classList.remove('open');
+      getCoords(input);
+    }
+  });
+
+  // slide menu out of window - clicking out of input div
+  menuDiv.addEventListener('click', (event) => {
+    if (event.target.className === 'menu-div open') {
+      menuDiv.classList.remove('open');
+      getCoords(input);
+    }
+  });
+}
+
 // set page, fetch api, and show data
 (async function init(url) {
   generateBody();
+  menuFunctions();
   const data = await fetchApi(url);
   displayData(data);
 }(baseUrl));
