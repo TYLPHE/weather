@@ -6,65 +6,45 @@ const widget = {
     const highLow = widget.nowHighLowDiv();
     const slash = document.createElement('div');
     slash.textContent = '/';
-    highLow.append(
-      widget.nowHigh(),
-      slash,
-      widget.nowLow(),
-    );
+    highLow.append(widget.nowHigh(), slash, widget.nowLow());
 
     // attach temp divs to today container
     const currentTemp = widget.nowTempDiv();
-    currentTemp.append(
-      widget.nowTemp(),
-      highLow,
-    );
+    currentTemp.append(widget.nowTemp(), highLow);
 
     // place nowTempDiv and conditions to div and append to widget
     const conditionDiv = widget.conditionDiv();
-    conditionDiv.append(
-      currentTemp,
-      widget.condition(),
-    );
+    conditionDiv.append(currentTemp, widget.condition());
+
     // append everything to widget container
     const widgetBody = widget.body();
-    widgetBody.append(
-      widget.location(),
-      conditionDiv,
-      widget.forecastDiv(),
-    );
+    widgetBody.append(widget.location(), conditionDiv, widget.forecastDiv());
 
     // create a main absolute window to hide popup menu
     // append widget and menu to this so it can create popup effect
     const widgetWindow = document.createElement('div');
     widgetWindow.classList.add('widget-window');
-    widgetWindow.append(
-      widgetBody,
-      widget.menu(),
-    );
+    widgetWindow.append(widgetBody, widget.menu());
     return widgetWindow;
   },
-
   // main widget body
   body: () => {
     const body = document.createElement('div');
     body.classList.add('widget');
     return body;
   },
-
   // div to display location
   location: () => {
     const locationDiv = document.createElement('div');
     locationDiv.classList.add('location-div');
     return locationDiv;
   },
-
   // div to show today's condition
   today: () => {
     const today = document.createElement('div');
     today.classList.add('today-div');
     return today;
   },
-
   // div to contain current temp and high/low temp
   nowTempDiv: () => {
     const temp = document.createElement('div');
@@ -76,7 +56,6 @@ const widget = {
     temp.classList.add('now-temp');
     return temp;
   },
-
   // div to contain high/low temp. to be attached to now-temp-div
   nowHighLowDiv: () => {
     const temp = document.createElement('div');
@@ -93,7 +72,6 @@ const widget = {
     temp.classList.add('now-low');
     return temp;
   },
-
   // div to display condition, for example, 'clear sky'
   conditionDiv: () => {
     const conditionDiv = document.createElement('div');
@@ -105,7 +83,6 @@ const widget = {
     condition.classList.add('condition');
     return condition;
   },
-
   // div to display 5-day forecast
   forecastDiv: () => {
     const forecastDiv = document.createElement('div');
@@ -125,17 +102,12 @@ const widget = {
 
       const forecastHighLow = document.createElement('div');
       forecastHighLow.classList.add('forecast-high-low');
-      forecastHighLow.append(
-        forecastHigh,
-        slash,
-        forecastLow,
-      );
+      forecastHighLow.append(forecastHigh, slash, forecastLow);
+
       const day = document.createElement('div');
       day.classList.add(`day-${i}`);
-      forecastDayDiv.append(
-        day,
-        forecastHighLow,
-      );
+
+      forecastDayDiv.append(day, forecastHighLow);
       forecastDiv.appendChild(forecastDayDiv);
     }
 
@@ -154,31 +126,20 @@ const widget = {
 
     const inputContainer = document.createElement('div');
     inputContainer.classList.add('input-container');
-    inputContainer.append(
-      label,
-      locationInput,
-    );
+    inputContainer.append(label, locationInput);
 
     const metricButton = document.createElement('button');
     metricButton.type = 'submit';
 
-    menuDiv.append(
-      metricButton,
-      inputContainer,
-    );
+    menuDiv.append(metricButton, inputContainer);
 
     return menuDiv;
   },
 };
-
 // generate overall website layout
 const body = {
   init: () => {
-    document.body.append(
-      body.header(),
-      widget.init(),
-      body.intro(),
-    );
+    document.body.append(body.header(), widget.init(), body.intro());
   },
   header: () => {
     const header = document.createElement('header');

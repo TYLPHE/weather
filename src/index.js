@@ -1,41 +1,28 @@
 import './style.css';
 import generateBody from './generateBody';
 
-// I havent learned how to hide APIs yet.
+// variables to be used in URLs
 const api = '32f3485fcef91da801aff2df635b45db';
-
-// to be used in let GeoToCoord
 let location = '';
-
-// can be 'metric' or 'imperial'
 let units = 'Imperial';
-
-// default latitude and longitude values
 let lat = 37.7790262;
 let lon = -122.419906;
 
-// lon/lat coordinates -> location name
 let coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
-
-// location/zip/post code -> lon/lat coordinates
 let GeoToCoord = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${api}`;
-
-// used in fetch()
 let baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
-// fetch data
 async function fetchApi(url) {
   try {
     const response = await fetch(url);
     const weatherData = await response.json();
-    console.log(weatherData);
     return weatherData;
   } catch (err) {
-    throw alert(`Error: ${err}`);
+    throw alert(`fetchApi(): ${err}`);
   }
 }
 
-// convert coords to name
+// convert coords to location name
 async function reverseGeo(data) {
   lat = data.lat;
   lon = data.lon;
@@ -110,13 +97,11 @@ async function getCoords(/* input div */ input) {
     await displayData(newData);
   } catch (err) {
     const border = document.querySelector('.widget-window');
-    // border.style.borderColor = 'red';
     border.classList.toggle('location-error');
     setTimeout(() => {
-      // border.style.borderColor = 'cyan';
       border.classList.toggle('location-error');
     }, 1000);
-    console.log(`error in getCoords(): ${err}`);
+    console.log(`getCoords(): ${err}`);
   }
 }
 
@@ -135,7 +120,7 @@ function menuFunctions() {
     menuDiv.classList.toggle('open');
     setTimeout(() => {
       input.focus();
-    }, 160);
+    }, 200);
   });
 
   // slide menu out of window - 'Enter' hotkey
@@ -160,12 +145,6 @@ function menuFunctions() {
 
   // metric button
   const button = document.querySelector('button');
-  // if (units === 'Imperial') {
-  //   button.textContent = '°F';
-  // } else {
-  //   button.textContent = '°C';
-  // }
-
   button.addEventListener('click', () => {
     if (units === 'Imperial') {
       units = 'Metric';
