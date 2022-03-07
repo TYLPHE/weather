@@ -1,6 +1,7 @@
 [See my progress here!](https://TYLPHE.github.io/weather/dist/)
 
 # weather
+[](https://TYLPHE.github.io/weather/readme-assets/weather-gif.gif)
 https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/weather-app
 
 Use everything we’ve been discussing to create a weather forecast site using the weather API from the previous lesson. You should be able to search for a specific location and toggle displaying the data in Fahrenheit or Celsius.
