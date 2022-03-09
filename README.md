@@ -17,7 +17,16 @@ Weather focuses on the fetch, async, and await functions to pull API data from O
 The search menu also has a unit conversion button.
 
 ## Challenges
-OpenWeather provides its linkes like below
+OpenWeather provides its links like the one below:
 ```
 http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 ```
+
+Using this link returns an error in Firefox's console:
+```
+Blocked loading mixed active content "http://api.openweathermap.org/..."
+```
+
+I learned from [the link provided in the console](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content) that http is also called "mixed content", which means that this link is only partially encrypted. 
+
+To resolve this issue, I had to change "http://" to https://".
