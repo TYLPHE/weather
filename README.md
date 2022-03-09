@@ -12,4 +12,12 @@
 - Convert data to Fahrenheit or Celsius
 
 ## About
-The weather assignment focuses on the fetch, async, and await functions to pull API data from OpenWeather. I wanted to make my app a widget to practice more phone-like features like a drop-down menu. In this case, the search menu slides from  Weather is my first API project.
+Weather focuses on the fetch, async, and await functions to pull API data from OpenWeather. I wanted to make my app a widget to practice more phone-like features like a drop-down menu. In this case, the search menu slides from off-screen.
+
+The search menu also has a unit conversion button.
+
+## Challenges
+OpenWeather provides its linkes like below
+```
+http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+```
