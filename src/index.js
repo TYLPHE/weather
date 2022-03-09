@@ -91,7 +91,7 @@ async function getCoords(/* input div */ input) {
     const coord = await fetchApi(GeoToCoord);
     lat = coord[0].lat;
     lon = coord[0].lon;
-    baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
+    baseUrl = `http://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
     const newData = await fetchApi(baseUrl);
     await displayData(newData);
