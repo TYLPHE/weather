@@ -139,7 +139,7 @@ const widget = {
 // generate overall website layout
 const body = {
   init: () => {
-    document.body.append(body.header(), widget.init(), body.intro());
+    document.body.append(body.header(), widget.init(), body.introTest(bodyContent));
   },
   header: () => {
     const header = document.createElement('header');
@@ -175,6 +175,16 @@ const body = {
     p2.textContent = bodyContent.p2;
 
     intro.append(p1, p2);
+    return intro;
+  },
+  introTest: (paragraph) => {
+    const intro = document.createElement('intro');
+    intro.classList.add('intro');
+    for (let i = 0; i < paragraph.length; i += 1) {
+      const p = document.createElement('p');
+      p.textContent = paragraph[i];
+      intro.appendChild(p);
+    }
     return intro;
   },
 };
