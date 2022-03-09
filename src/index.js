@@ -10,7 +10,7 @@ let lon = -122.419906;
 
 let coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
 let GeoToCoord = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${api}`;
-let baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
+let baseUrl = `http://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
 async function fetchApi(url) {
   try {
@@ -91,7 +91,7 @@ async function getCoords(/* input div */ input) {
     const coord = await fetchApi(GeoToCoord);
     lat = coord[0].lat;
     lon = coord[0].lon;
-    baseUrl = `http://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
+    baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
     const newData = await fetchApi(baseUrl);
     await displayData(newData);
