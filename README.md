@@ -1,6 +1,6 @@
 # Weather
 ###### My first API fetching project
-![](https://TYLPHE.github.io/weather/readme-assets/weather-gif.gif)
+![](https://github.com/TYLPHE/TYLPHE/blob/main/readmeAssets/weather.gif)
 
 ## Links
 - [Try Weather here!](https://TYLPHE.github.io/weather/dist/)
