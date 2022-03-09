@@ -27,6 +27,6 @@ Using this link returns an error in Firefox's console:
 Blocked loading mixed active content "http://api.openweathermap.org/..."
 ```
 
-I learned from [the link provided in the console](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content) that http is also called "mixed content", which means that this link is only partially encrypted. 
+I learned from [the link provided in the console](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content) that "http" is also known as "mixed content", which means that this link is only partially encrypted. 
 
 To resolve this issue, I had to change "http://" to https://".
