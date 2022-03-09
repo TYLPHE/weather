@@ -10,7 +10,7 @@ let lon = -122.419906;
 
 let coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
 let GeoToCoord = `https://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${api}`;
-let baseUrl = `http://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
+let baseUrl = `https://api.openweathermap.org/data/2.5/onecall?&exclude=minutely,hourly&lat=${lat}&lon=${lon}&APPID=${api}&units=${units}`;
 
 async function fetchApi(url) {
   try {
