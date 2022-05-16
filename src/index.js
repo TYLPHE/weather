@@ -5,7 +5,7 @@ import generateBody from './generateBody';
 const api = '32f3485fcef91da801aff2df635b45db';
 let location = '';
 let units = 'Imperial';
-let lat = 37.7790262;
+let lat = 37.779026;
 let lon = -122.419906;
 
 let coordToGeo = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api}`;
