@@ -19,18 +19,16 @@ The search menu also has a unit conversion button, which is a parameter set by t
 ## Challenges
 ### HTTP vs HTTPS - Mixed content error
 OpenWeather provides its links like the one below:
-```
-http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-```
+
+`http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}`
 
 Using this link returns an error in Firefox's console:
-```
-Blocked loading mixed active content "http://api.openweathermap.org/..."
-```
+
+`Blocked loading mixed active content "http://api.openweathermap.org/..."`
 
 I learned from [the link provided in the console](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed_content) that "http" is also known as "mixed content", which means that this link is only partially encrypted. 
 
-To resolve this issue, I had to change "http://" to https://".
+To resolve this issue, I had to change "http://" to "https://".
 
 ### Pulling the right data - Coordinates and a 5-day forecast
 OpenWeather has a variety of APIs and it was not as straightforward as I originally thought. Originally, I used an API that pulled current weather, which provided detailed information about the day. I, however, had to use a different API from OpenWeather that contained the multi-day forecast. This API is called [One Call API](https://openweathermap.org/api/one-call-api). It contained all the information I wanted to display on my app! Unlike the current weather API, One Call API required latitude and longitude parameters instead of location name.
