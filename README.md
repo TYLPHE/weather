@@ -3,7 +3,7 @@
 ![](https://github.com/TYLPHE/TYLPHE/blob/main/readmeAssets/weather.gif)
 
 ## Links
-- [Try Weather here!](https://TYLPHE.github.io/weather/dist/)
+- [Try Weather here!](https://tylphe.github.io/weather/)
 
 - [Link to the Assignment](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/weather-app)
 
